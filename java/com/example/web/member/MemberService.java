@@ -8,5 +8,5 @@ public interface MemberService {
 	public boolean login(Member member);
 	public void update(Member member);
 	public void delete(Member member);
-	
+
 }

@@ -79,9 +79,8 @@ footer {
 	<section>
 		<nav>
 			<ul>
-				<li><a id="a-first" href="#">Join</a></li>
-				<li><a id="a-second" href="../index.html">Login</a></li>
-				<li><a id="a-third" href="#">....</a></li>
+				<li><a id="home_a">홈으로</a></li>
+
 			</ul>
 		</nav>
 
@@ -100,41 +99,38 @@ footer {
 	</section>
 
 	<footer>
-  <p>Footer</p>
-</footer>
-<script>
-$('#join-button').click(e => {
+		<p>Footer</p>
+	</footer>
+	<script>
+$('#home_a')
+	.css('cursor','pointer')
+	.click(e=>{.click(e=>{
 	e.preventDefault()
-	$.ajax({
-		url: '/member/join',
-		type: 'post',
-		data: JSON.stringify(
-				{name:$('#name').val(),
-				userid: $('#userid').val(),
-				passwd: $('#passwd').val(),
-				ssn: $('#ssn').val(),
-				addr: $('#addr').val()}),
-		dataType: 'json',
-		contentType: 'application/json',
-		success: d => {
-			if(d === 'SUCCESS'){
-				location.href="../index.html"
-			}else{
-				location.href="join.html"
-			}
-		},
-		error: (request,status,error)=>{
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-		}
-		
-	})
-	
-		
+	location.href = "../index.html"
 })
-		$('#cancel-button').click(function() {
-			alert('취소 버튼 클릭')
-		})
-	</script>
+$('#join_button')
+.click(e=>{
+	e.preventDefault()})
+}$.ajax({
+	url:'user/join',
+	type:'post',
+	data: JSON.stringify(
+			{name:$('#name').val(),
+			userid: $('#userid').val(),
+			passwd: $('#passwd').val(),
+			ssn: $('#ssn').val(),
+			addr: $('#addr').val()}),
+	contentType: 'application/json',
+	success: d =>{
+		alert(d)
+	},
+	error: (r,x,e){ =>{}
+		alert(r.status)
+	}
+	})
+	})
+
+</script>
 </body>
 </html>
 

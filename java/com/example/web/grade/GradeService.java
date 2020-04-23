@@ -1,5 +1,10 @@
 package com.example.web.grade;
 
-public class GradeService {
+import com.example.web.util.Credit;
 
+public interface GradeService {
+
+
+	
+	
 }

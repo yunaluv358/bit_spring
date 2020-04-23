@@ -78,9 +78,11 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="member/join.html">Join</a></li>
-      <li><a id="a-second" href="#">Login</a></li>
-      <li><a id="a-third" href="#">....</a></li>
+      <li><a id="join_a">관리자 등록</a></li>
+      <li><a id="login_a">관리자 로그인</a></li>
+      <li><a id="signup_a">사용자 회원가입</a></li>
+      <li><a id="signin_a">사용자 로그인</a></li>
+      
     </ul>
   </nav>
   
@@ -101,14 +103,25 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-$('#a-first').click(function(){
-	
+$('#join_a').click(e=>{
+	e.preventDefault()
+	location.href = "member/join.html"
 })
-$('#a-second').click(function(){
+$('#signup_a').click(e=>{
+	e.preventDefault()
+	location.href = "user/signup.html"
 })
-$('#a-third').click(function(){
+$('#signin_a')
+	.css('cursor','pointer')
+	.click(e=>{
+	e.preventDefault()
+	location.href = "user/signin.html"
 })
-$('#login-button').click(function(){
+
+$('#login-button')
+	.css('cursor','pointer')
+	.click(e=>{
+	e.preventDefault()
 	alert('login click')
 	$.ajax({
 		url: '/member/login',
@@ -135,10 +148,9 @@ $('#cancel-button').click(function(){
 	
 })
 </script>
+
 </body>
 </html>
-
-
 
 
 
