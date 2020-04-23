@@ -87,11 +87,16 @@ footer {
 
 		<article>
 			<form action="#">
-				<label>NAME </label> <br> <input id="name" type="text" /> <br>
-				<label>ID</label><br> <input id="userid" type="text" /><br>
-				<label>PASSWORD</label><br> <input id="passwd" type="text" /><br>
-				<label>SSN</label><br> <input id="ssn" type="text"><br>
-				<label>ADRESS</label><br> <input id="addr" type="text"><br>
+				<label>NAME </label> <br> 
+				<input id="name" type="text" /> <br>
+				<label>ID</label><br> 
+				<input id="userid" type="text" /><br>
+				<label>PASSWORD</label><br> 
+				<input id="passwd" type="text" /><br>
+				<label>SSN</label><br> 
+				<input id="ssn" type="text"><br>
+				<label>ADRESS</label><br> 
+				<input id="addr" type="text"><br>
 				<br> <input id="join-button" type="button" value="회원가입">
 				<input id="cancel-button" type="button" value="취소">
 
@@ -103,38 +108,42 @@ footer {
   <p>Footer</p>
 </footer>
 <script>
-$('#join-button').click(e => {
-	e.preventDefault()
-	$.ajax({
-		url: '/member/join',
-		type: 'post',
-		data: JSON.stringify(
-				{name:$('#name').val(),
-				userid: $('#userid').val(),
-				passwd: $('#passwd').val(),
-				ssn: $('#ssn').val(),
-				addr: $('#addr').val()}),
-		dataType: 'json',
-		contentType: 'application/json',
-		success: d => {
-			if(d === 'SUCCESS'){
-				location.href="../index.html"
-			}else{
-				location.href="join.html"
-			}
-		},
-		error: (request,status,error)=>{
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
+$('#join-button')
+.click(e=>{
+e.preventDefault()
+$.ajax({
+	url:'/user/join',
+	type: 'post',
+	data: JSON.stringify({
+		name: $('#name').val(),
+		userid: $('#userid').val(),
+		passwd: $('#passwd').val(),
+		ssn: $('#ssn').val(),
+		addr: $('#addr').val()}),
+	dataType: 'json',
+	contenType: 'application/json',
+	success: d(e=>{
+		if(d === success){
+			location.href='signin.html'
+		}else{
+			location.href='signup.html'
 		}
-		
-	})
+	},
+	error: (r, x, e)=>{
+		alert(r.status)
+
 	
-		
+	}
+	
+	
+	})
+
 })
-		$('#cancel-button').click(function() {
-			alert('취소 버튼 클릭')
-		})
-	</script>
+$('#cancel-button').click(e => {
+	e.preventDefault()
+	alert('취소 버튼 클릭')
+})
+</script>
 </body>
 </html>
 

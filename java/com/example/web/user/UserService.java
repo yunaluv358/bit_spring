@@ -6,8 +6,10 @@ public interface UserService {
 
 	int count();
 	
-	public User detail(String userid);
-
 	public User login(User user);
+	
+	public User detail(String userid); //얘는 그냥 먼저 써줌
+
+	
 
 }

@@ -88,8 +88,8 @@ footer {
    	<input id="userid" type="text"> <br>
    	<label>PASSWORD</label><br>
    	<input id="passwd" type="text"><br>
-   	<input id="login-button" type="button" value="로그인">
-   	<input id="cancel-button" type="button" value="취소">
+   	<input id="login_button" type="button" value="로그인">
+   	<input id="cancel_button" type="button" value="취소">
    	
    </form>
   </article>
@@ -105,13 +105,15 @@ $('#home_a')
 	e.preventDefault()
 	location.href = "../index.html"
 })
-$('#login_button').click(e=>){
-$.ajax({
+$('#login_button').click(e=>{
+	e.preventDefault()
+	$.ajax({
 	url: '/user/login',
 	type:'post',
 	data: JSON.stringify({
-		userid: 
-	}){
+		userid: $('#userid').val(),
+		passwd: $('#passwd').val()
+	}),
 	dataType: 'json',
 	contentType: 'application/json',
 	success : d => {

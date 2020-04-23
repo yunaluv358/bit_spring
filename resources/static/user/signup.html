@@ -104,31 +104,43 @@ footer {
 	<script>
 $('#home_a')
 	.css('cursor','pointer')
-	.click(e=>{.click(e=>{
+	.click(e=>{
 	e.preventDefault()
 	location.href = "../index.html"
 })
-$('#join_button')
-.click(e=>{
-	e.preventDefault()})
-}$.ajax({
-	url:'user/join',
-	type:'post',
-	data: JSON.stringify(
-			{name:$('#name').val(),
+$('#join-button')
+	.click(e=>{
+		alert('>>>')
+	e.preventDefault()
+	$.ajax({
+		url:'/user/join',
+		type: 'post',
+		data: JSON.stringify({
+			name: $('#name').val(),
 			userid: $('#userid').val(),
 			passwd: $('#passwd').val(),
 			ssn: $('#ssn').val(),
 			addr: $('#addr').val()}),
-	contentType: 'application/json',
-	success: d =>{
-		alert(d)
-	},
-	error: (r,x,e){ =>{}
-		alert(r.status)
-	}
-	})
-	})
+		dataType: 'json',
+		contentType: 'application/json',
+		success: d=>{
+			alert('>>>'+d)
+			if(d === 'SUCCESS'){
+				location.href='signin.html'
+			}else{
+				location.href='signup.html'
+			}
+		},
+		error: (r, x, e)=>{
+			alert(r.status)
+
+		
+		}
+		
+		
+		})
+	
+})
 
 </script>
 </body>
