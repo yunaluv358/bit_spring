@@ -13,7 +13,7 @@
     <div class="container">
       <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>마이 페이지</h2>
+        <h2>수정 페이지</h2>
       </div>
 
       <div class="row">
@@ -23,9 +23,9 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="name">이름</label>
-                <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb"><li id="name" class="breadcrumb-item active" aria-current="page"></li></ol>
-			    </nav>
+                <div class="input-group mb-3">
+				  <input id="name" type="text" class="form-control" aria-describedby="basic-addon1">
+				</div>
               </div>
             </div>
 
@@ -37,9 +37,9 @@
             </div>
             <div class="mb-3">
               <label for="addr">주소</label>
-              <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb"><li id="addr" class="breadcrumb-item active" aria-current="page"></li></ol>
-			    </nav>
+              <div class="input-group mb-3">
+				  <input id="addr" type="text" class="form-control"  aria-describedby="basic-addon1">
+				</div>
             </div>
             <div class="mb-3">
               <label for="ssn">주민번호</label>
@@ -49,11 +49,14 @@
             </div>
            <div class="mb-3">
               <label for="passwd">비밀번호</label>
-              <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb"><li id="passwd" class="breadcrumb-item active" aria-current="page"></li></ol>
-			    </nav>
+              <div class="input-group mb-3">
+				  <input id="passwd" type="text" class="form-control" aria-describedby="basic-addon1">
+				</div>
             </div>
-            <button id="update_button" class="btn btn-primary btn-lg btn-block" type="submit">정보 수정하기</button>
+            <div style="height: 50px"></div>
+            <button id="confirm_button" class="btn btn-success btn-lg btn-block" type="submit">수정 확인</button>
+            <button id="cancel_button" class="btn btn-warning btn-lg btn-block" type="submit">수정 취소</button>
+            <button id="remove_button" class="btn btn-danger btn-lg btn-block" type="submit">회원 탈퇴</button>
           </form>
         </div>
       </div>
@@ -86,25 +89,72 @@
         }, false);
       })();
       $.getJSON('/user/detail/'+sessionStorage.getItem('userid'),d =>{
-    	  $('#name').text(d.name)
+    	  $('#name').val(d.name)
     	  $('#userid').text(d.userid)
-    	  $('#addr').text(d.addr)
+    	  $('#addr').val(d.addr)
     	  $('#ssn').text(d.ssn)
-    	  $('#passwd').text(d.passwd)
+    	  $('#passwd').val(d.passwd)
       })
-      $('#update_button').click(e=>{
+      $('#cancel_button').click(e => {
     	  e.preventDefault()
-    	  location.href = 'update.html'
+    	  location.href = 'mypage.html'
       })
+      const name = $('#name').val()
+      const addr = $('#addr').val()
+      const passwd = $('#passwd').val()
+      $('#confirm_button').click(e=>{
+    	  if(name === $('#name').val() 
+    			  && addr === $('#addr').val() 
+    			  && passwd === $('#passwd').val()){
+    		  alert('변경사항이 없습니다')
+    	  }else{
+    		  $.ajax({
+    			  url : '/user/update',
+    			  type : 'put',
+    			  data : JSON.stringify({
+    				 name : $('#name').val(),
+    		    	 userid : $('#userid').text(),
+    		    	 addr : $('#addr').val(),
+    		    	 ssn : $('#ssn').text(),
+    		    	 passwd : $('#passwd').val()
+    			  }),
+    			  dataType : 'json',
+    			  contentType : 'application/json',
+    			  success : d =>{
+    				  if(d === 'SUCCESS'){
+    					  location.href = 'mypage.html'
+    				  }else{
+    					  alert('수정 실패했습니다.')
+    					  location.href = 'update.html'
+    				  }
+    			  },
+    			  error : (r, x, e)=>{
+    				  alert(r.status)
+    			  }
+    		  })
+    	  }
+    	  
+      })
+      $('#remove_button').click( e=>{
+    	  e.preventDefault()
+      })$.ajax({
+    	  url : '/user/remove/'+sessionStorage.getItem('userid'),
+    	  type : 'delete',
+    	  dataType : 'json',
+    	  contentType: 'application/json'
+    	  success : d => {
+    		  if(d === 'SUCCESS'){
+    			  alert('탈퇴처리 되었습니다.')
+    			  sessionStorage.getItem('userid,'')
+    			  location.href = '../index.html'
+    		  }
+    		  
+    	  }
+      })
+      
     </script>
   
 
 </body>
 </html>
-
-
-
-
-
-
 

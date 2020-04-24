@@ -78,7 +78,7 @@ footer {
 <section>
   <nav>
     <ul>
-   		 <li><a id="home_a">홈으로</a></li>
+		<li><a id="home_a">홈으로</a></li>
     </ul>
   </nav>
   
@@ -100,44 +100,41 @@ footer {
 </footer>
 <script>
 $('#home_a')
-	.css('cursor', 'pointer')
-	.click(e=>{
+	.css('cursor','pointer')
+	.click(e => {
 	e.preventDefault()
 	location.href = "../index.html"
 })
 $('#login_button').click(e=>{
 	e.preventDefault()
 	$.ajax({
-	url: '/user/login',
-	type:'post',
-	data: JSON.stringify({
-		userid: $('#userid').val(),
-		passwd: $('#passwd').val()
+	url : '/user/login',
+	type : 'post',
+	data : JSON.stringify({
+		userid : $('#userid').val(),
+		passwd : $('#passwd').val()
 	}),
-	dataType: 'json',
-	contentType: 'application/json',
+	dataType : 'json',
+	contentType : 'application/json',
 	success : d => {
 		if(d.messenger === 'SUCCESS'){
+			sessionStorage.setItem('userid',d.user.userid)
 			location.href = 'mypage.html'
 		}else{
-			location.href = 'sighin.html'
+			location.href = 'signin.html'
 		}
-			
-		
-		
 	},
-	
-	error : (r,x,e) => {
+	error : (r, x, e) => {
 		alert(r.status)
 	}
-		
-	
+})
 })
 
-})
 </script>
 </body>
 </html>
+
+
 
 
 
