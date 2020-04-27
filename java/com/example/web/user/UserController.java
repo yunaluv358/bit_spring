@@ -1,6 +1,8 @@
 package com.example.web.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,14 @@ public class UserController {
 	@PostMapping("/join")
 	public Messenger join(@RequestBody User user) {
 		int count = userService.count();
-		userService.add(user);
-		return (userService.count() == count + 1) ? Messenger.SUCCESS : Messenger.FAIL;
+		userService.saveFile(user);
+		// return (userService.count() == count + 1) ? Messenger.SUCCESS : Messenger.FAIL;
+		return Messenger.SUCCESS;
+	}
+	@GetMapping("/list")
+	public List<User> list(){
+		// return userService.list();
+		return userService.readFile();
 	}
 	
 	@PostMapping("/login")
@@ -49,9 +57,17 @@ public class UserController {
 	}
 	@DeleteMapping("/remove/{userid}")
 	public Messenger remove(@PathVariable String userid) {
-		System.out.println("delete 정보::: "+userid);
-		return (userService.remove(userid)) ? Messenger.SUCCESS : Messenger.FAIL;
+		System.out.println("delete 정보 ::: "+userid);
+		return (userService.remove(userid)) ? Messenger.SUCCESS: Messenger.FAIL;
 	}
 
 }
+
+
+
+
+
+
+
+
 
