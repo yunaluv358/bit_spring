@@ -87,7 +87,7 @@ footer {
 		<article>
 			<form action="#">
 				<label>NAME </label> <br> <input id="name" type="text" /> <br>
-				<label>ID</label><br> <input id="userid" type="text" /><br>
+				<label>ID</label><br> <input id="userid" type="text" /><input id="id_button" type="button" value="아이디 중복확인"/> <br>
 				<label>PASSWORD</label><br> <input id="passwd" type="text" /><br>
 				<label>SSN</label><br> <input id="ssn" type="text"><br>
 				<label>ADRESS</label><br> <input id="addr" type="text"><br>
@@ -141,6 +141,27 @@ $('#join-button')
 		})
 	
 })
+$('#id_button').click(e=>{
+	alert("클릭")
+	e.preventDefault()
+	$.ajax({
+		url: '',
+		type: 'post',
+		data: Json.stringify({
+			userid: $('#userid').val(),
+		})
+		dataType: 'json',
+		contentType: 'application/json',
+		success: d=>{
+			if(d === 'SUCCESS'){
+				
+			}
+			
+		}
+		
+	})
+})
+
 
 </script>
 </body>
